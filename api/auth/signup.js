@@ -1,8 +1,8 @@
-import { put, get } from '@vercel/blob';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+const { put, get } = require('@vercel/blob');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'pb-club-secret-2026';
+const JWT_SECRET=proces...CRET || 'pb-club-secret-2026';
 const BLOB_KEY = 'club-users.json';
 
 async function getUsers() {
@@ -16,23 +16,32 @@ async function saveUsers(obj) {
   await put(BLOB_KEY, JSON.stringify(obj), { contentType: 'application/json', access: 'private' });
 }
 
-function json(data, status = 200) {
-  return new Response(JSON.stringify(data), {
-    status,
-    headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-  });
-}
-
-export async function POST(req) {
+module.exports = async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  if (req.method === 'OPTIONS') {
+    res.status(204).end();
+    return;
+  }
+  if (req.method !== 'POST') {
+    res.status(405).json({ error: 'Method not allowed' });
+    return;
+  }
   try {
-    const { name, email, password } = await req.json();
-    if (!email || !name || !password) return json({ error: 'Email, name, and password are required' }, 400);
-    if (password.length < 6) return json({ error: 'Password must be at least 6 characters' }, 400);
-
+    const { name, email, password } = req.body;
+    if (!email || !name || !password) {
+      res.status(400).json({ error: 'Email, name, and password are required' });
+      return;
+    }
+    if (password.length < 6) {
+      res.status(400).json({ error: 'Password must be at least 6 characters' });
+      return;
+    }
     const emailKey = email.toLowerCase().trim();
     const users = await getUsers();
-    if (users[emailKey]) return json({ error: 'An account with this email already exists' }, 409);
-
+    if (users[emailKey]) {
+      res.status(409).json({ error: 'An account with this email already exists' });
+      return;
+    }
     users[emailKey] = {
       email: emailKey,
       name: name.trim(),
@@ -40,14 +49,9 @@ export async function POST(req) {
       createdAt: new Date().toISOString(),
     };
     await saveUsers(users);
-
     const token = jwt.sign({ email: emailKey, name: name.trim() }, JWT_SECRET, { expiresIn: '7d' });
-    return json({ token, user: { email: emailKey, name: name.trim() } });
+    res.json({ token, user: { email: emailKey, name: name.trim() } });
   } catch (err) {
-    return json({ error: err.message }, 500);
+    res.status(500).json({ error: err.message });
   }
-}
-
-export async function OPTIONS() {
-  return new Response(null, { status: 204, headers: { 'Access-Control-Allow-Origin': '*' } });
-}
+};
