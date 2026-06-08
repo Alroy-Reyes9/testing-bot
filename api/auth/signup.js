@@ -1,19 +1,14 @@
-import { put, get } from '@vercel/blob';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-
-const JWT_SECRET=*** || 'pb-club-secret-2026';
 const BLOB_KEY = 'club-users.json';
 
-async function getUsers() {
+async function getUsers(blob) {
   try {
-    const blob = await get(BLOB_KEY);
-    if (!blob) return {};
-    return JSON.parse(await blob.text());
+    const result = await blob.get(BLOB_KEY);
+    if (!result) return {};
+    return JSON.parse(await result.text());
   } catch { return {}; }
 }
-async function saveUsers(obj) {
-  await put(BLOB_KEY, JSON.stringify(obj), { contentType: 'application/json', access: 'private' });
+async function saveUsers(blob, obj) {
+  await blob.put(BLOB_KEY, JSON.stringify(obj), { contentType: 'application/json', access: 'private' });
 }
 
 function json(data, status = 200) {
@@ -25,12 +20,19 @@ function json(data, status = 200) {
 
 export async function POST(req) {
   try {
+    const [{ put, get }, bcrypt, jwt] = await Promise.all([
+      import('@vercel/blob'),
+      import('bcryptjs'),
+      import('jsonwebtoken'),
+    ]);
+
     const { name, email, password } = await req.json();
     if (!email || !name || !password) return json({ error: 'Email, name, and password are required' }, 400);
     if (password.length < 6) return json({ error: 'Password must be at least 6 characters' }, 400);
 
+    const JWT_SECRET=*** || 'pb-club-secret-2026';
     const emailKey = email.toLowerCase().trim();
-    const users = await getUsers();
+    const users = await getUsers({ get });
     if (users[emailKey]) return json({ error: 'An account with this email already exists' }, 409);
 
     users[emailKey] = {
@@ -39,7 +41,7 @@ export async function POST(req) {
       passwordHash: await bcrypt.hash(password, 10),
       createdAt: new Date().toISOString(),
     };
-    await saveUsers(users);
+    await saveUsers({ put }, users);
 
     const token = jwt.sign({ email: emailKey, name: name.trim() }, JWT_SECRET, { expiresIn: '7d' });
     return json({ token, user: { email: emailKey, name: name.trim() } });

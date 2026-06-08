@@ -1,15 +1,10 @@
-import { put, get } from '@vercel/blob';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-
-const JWT_SECRET=*** || 'pb-club-secret-2026';
 const BLOB_KEY = 'club-users.json';
 
-async function getUsers() {
+async function getUsers(get) {
   try {
-    const blob = await get(BLOB_KEY);
-    if (!blob) return {};
-    return JSON.parse(await blob.text());
+    const result = await get(BLOB_KEY);
+    if (!result) return {};
+    return JSON.parse(await result.text());
   } catch { return {}; }
 }
 
@@ -22,11 +17,18 @@ function json(data, status = 200) {
 
 export async function POST(req) {
   try {
+    const [{ get }, bcrypt, jwt] = await Promise.all([
+      import('@vercel/blob'),
+      import('bcryptjs'),
+      import('jsonwebtoken'),
+    ]);
+
+    const JWT_SECRET=*** || 'pb-club-secret-2026';
     const { email, password } = await req.json();
     if (!email || !password) return json({ error: 'Email and password are required' }, 400);
 
     const emailKey = email.toLowerCase().trim();
-    const users = await getUsers();
+    const users = await getUsers(get);
     const user = users[emailKey];
     if (!user) return json({ error: 'Invalid email or password' }, 401);
 
