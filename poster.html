@@ -115,60 +115,42 @@
     .player-left { left: 0; }
     .player-right { right: 0; }
 
-    /* Jersey silhouette area */
-    .silhouette {
-      width: 280px;
-      height: 420px;
+    /* Player photo */
+    .photo {
+      width: 320px;
+      height: 400px;
+      border-radius: 16px;
+      background-size: cover;
+      background-position: center top;
       position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
     }
-    .player-left .silhouette { margin-left: auto; margin-right: 20px; }
-    .player-right .silhouette { margin-right: auto; margin-left: 20px; }
-
-    .jersey {
-      width: 200px;
-      height: 260px;
-      border-radius: 20px 20px 8px 8px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .player-left .photo { margin-left: auto; margin-right: 10px; }
+    .player-right .photo { margin-right: auto; margin-left: 10px; }
+    .photo-messi {
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Lionel_Messi_White_House_2026_%283x4_cropped%29.jpg/960px-Lionel_Messi_White_House_2026_%283x4_cropped%29.jpg');
     }
-    .jersey-arg {
-      background: linear-gradient(180deg, #75aadb 0%, #ffffff 30%, #75aadb 100%);
-      border: 2px solid rgba(255,255,255,0.1);
-      box-shadow: 0 20px 60px rgba(117,170,219,0.2);
+    .photo-ronaldo {
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/9/9c/President_Donald_Trump_meets_with_Cristiano_Ronaldo_in_the_Oval_Office_%2854933344262%29_%28cropped_and_rotated%29.jpg');
     }
-    .jersey-por {
-      background: linear-gradient(180deg, #e63946 0%, #ffffff 30%, #e63946 100%);
-      border: 2px solid rgba(255,255,255,0.1);
-      box-shadow: 0 20px 60px rgba(230,57,70,0.2);
-    }
-    .jersey-number {
-      font-size: 7rem;
-      font-weight: 900;
-      opacity: 0.12;
+    .photo-overlay {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #000;
-    }
-    .jersey-name {
-      position: absolute;
-      bottom: 16px;
+      bottom: 0;
       left: 0;
       right: 0;
-      text-align: center;
-      font-size: 1.8rem;
-      font-weight: 800;
-      letter-spacing: 4px;
-      text-transform: uppercase;
+      height: 60%;
+      background: linear-gradient(transparent, rgba(0,0,0,0.85));
     }
-    .name-arg { color: #1a3c6e; }
-    .name-por { color: #8b0000; }
+    .photo .jersey-number-overlay {
+      position: absolute;
+      bottom: 10px;
+      right: 14px;
+      font-size: 5rem;
+      font-weight: 900;
+      opacity: 0.15;
+      color: #fff;
+    }
 
     /* Stars above jerseys */
     .stars {
@@ -320,11 +302,9 @@
 
   <!-- Messi -->
   <div class="player player-left">
-    <div class="silhouette">
-      <div class="jersey jersey-arg">
-        <div class="jersey-number">10</div>
-        <div class="jersey-name name-arg">Messi</div>
-      </div>
+    <div class="photo photo-messi">
+      <div class="photo-overlay"></div>
+      <div class="jersey-number-overlay">10</div>
     </div>
     <div class="player-name">LIONEL</div>
     <div class="player-sub">Argentina · Forward</div>
@@ -338,11 +318,9 @@
 
   <!-- Ronaldo -->
   <div class="player player-right">
-    <div class="silhouette">
-      <div class="jersey jersey-por">
-        <div class="jersey-number">7</div>
-        <div class="jersey-name name-por">Ronaldo</div>
-      </div>
+    <div class="photo photo-ronaldo">
+      <div class="photo-overlay"></div>
+      <div class="jersey-number-overlay">7</div>
     </div>
     <div class="player-name">CRISTIANO</div>
     <div class="player-sub">Portugal · Forward</div>
