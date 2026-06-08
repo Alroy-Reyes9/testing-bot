@@ -38,6 +38,9 @@ const loginMsg = document.getElementById('loginMsg');
 const signupMsg = document.getElementById('signupMsg');
 const userBadge = document.getElementById('userBadge');
 const userName = document.getElementById('userName');
+const userDropdown = document.getElementById('userDropdown');
+const dropdownMenu = document.getElementById('dropdownMenu');
+const logoutBtn = document.getElementById('logoutBtn');
 
 // Check session on load
 const session = sessionStorage.getItem('picklehub_user');
@@ -124,9 +127,28 @@ function saveSession(user) {
 
 function showUser(name) {
   loginBtn.style.display = 'none';
-  userBadge.style.display = 'inline';
+  userDropdown.style.display = 'inline-block';
   userName.textContent = name;
 }
+
+// ===== User dropdown toggle =====
+userBadge.addEventListener('click', (e) => {
+  e.stopPropagation();
+  dropdownMenu.classList.toggle('open');
+});
+
+// ===== Logout =====
+logoutBtn.addEventListener('click', () => {
+  sessionStorage.removeItem('picklehub_user');
+  userDropdown.style.display = 'none';
+  dropdownMenu.classList.remove('open');
+  loginBtn.style.display = 'inline-block';
+});
+
+// ===== Close dropdown on outside click =====
+document.addEventListener('click', () => {
+  dropdownMenu.classList.remove('open');
+});
 
 function clearMessages() {
   loginMsg.textContent = '';

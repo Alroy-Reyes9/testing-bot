@@ -21,7 +21,12 @@
       </ul>
       <div class="nav-right">
         <button class="btn-login" id="loginBtn">Sign In</button>
-        <span class="user-badge" id="userBadge" style="display:none;">👤 <span id="userName"></span></span>
+        <div class="user-dropdown" id="userDropdown" style="display:none;">
+          <button class="user-badge" id="userBadge">👤 <span id="userName"></span></button>
+          <div class="dropdown-menu" id="dropdownMenu">
+            <button id="logoutBtn">Sign Out</button>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
