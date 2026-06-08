@@ -1,4 +1,5 @@
 const BLOB_KEY = 'club-users.json';
+const JWT_SECRET=process.env.JWT_SECRET || 'pb-club-secret-2026';
 
 async function getUsers(get) {
   try {
@@ -20,11 +21,14 @@ function json(data, status = 200) {
 
 export async function POST(req) {
   try {
-    const JWT_SECRET = process.env.JWT_SECRET || 'pb-club-secret-2026';
-    const blob = await import('@vercel/blob');
-    const bcrypt = await import('bcryptjs');
-    const jwt = await import('jsonwebtoken');
-    const { get } = blob;
+    const [blobMod, bcryptMod, jwtMod] = await Promise.all([
+      import('@vercel/blob'),
+      import('bcryptjs'),
+      import('jsonwebtoken'),
+    ]);
+    const { get, put } = blobMod;
+    const bcrypt = bcryptMod.default || bcryptMod;
+    const jwt = jwtMod.default || jwtMod;
     const { name, email, password } = await req.json();
     if (!email || !name || !password) return json({ error: 'Email, name, and password are required' }, 400);
     if (password.length < 6) return json({ error: 'Password must be at least 6 characters' }, 400);
@@ -37,7 +41,7 @@ export async function POST(req) {
       passwordHash: await bcrypt.hash(password, 10),
       createdAt: new Date().toISOString(),
     };
-    await saveUsers(blob.put, users);
+    await saveUsers(put, users);
     const token = jwt.sign({ email: emailKey, name: name.trim() }, JWT_SECRET, { expiresIn: '7d' });
     return json({ token, user: { email: emailKey, name: name.trim() } });
   } catch (err) {

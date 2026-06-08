@@ -1,3 +1,5 @@
+const JWT_SECRET=process.env.JWT_SECRET || 'pb-club-secret-2026';
+
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
@@ -7,8 +9,8 @@ function json(data, status = 200) {
 
 export async function GET(req) {
   try {
-    const jwt = await import('jsonwebtoken');
-    const JWT_SECRET=*** || 'pb-club-secret-2026';
+    const jwtMod = await import('jsonwebtoken');
+    const jwt = jwtMod.default || jwtMod;
     const auth = req.headers.get('authorization');
     if (!auth || !auth.startsWith('Bearer ')) return json({ error: 'Not authenticated' }, 401);
     const payload = jwt.verify(auth.slice(7), JWT_SECRET);
