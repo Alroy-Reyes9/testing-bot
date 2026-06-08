@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messi × Ronaldo — Legends</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #0a0a0a; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
+
+    .poster {
+      width: 1080px;
+      height: 1350px;
+      background: linear-gradient(135deg, #0d0d0d 0%, #1a1a2e 40%, #16213e 70%, #0d0d0d 100%);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 100px rgba(255,215,0,0.08);
+    }
+
+    /* Background glow orbs */
+    .poster::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,215,0,0.06), transparent 70%);
+      top: -100px;
+      right: -100px;
+    }
+    .poster::after {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,100,200,0.06), transparent 70%);
+      bottom: -80px;
+      left: -80px;
+    }
+
+    /* Top accent line */
+    .accent-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #ffd700, #ff6b35, #ffd700, #1e90ff, #ffd700);
+    }
+
+    /* GOAT header */
+    .goat-text {
+      position: absolute;
+      top: 50px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 1rem;
+      letter-spacing: 12px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.08);
+      font-weight: 900;
+    }
+
+    /* Title */
+    .title {
+      position: absolute;
+      top: 70px;
+      left: 0;
+      right: 0;
+      text-align: center;
+    }
+    .title h1 {
+      font-size: 3.8rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #ffd700, #fff4a3, #ffd700);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+    .title .sub {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      margin-top: 8px;
+      font-weight: 600;
+    }
+
+    /* Divider line */
+    .divider {
+      position: absolute;
+      top: 160px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,215,0,0.3), transparent);
+    }
+
+    /* Player sides */
+    .player {
+      position: absolute;
+      top: 200px;
+      width: 50%;
+      height: 850px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .player-left { left: 0; }
+    .player-right { right: 0; }
+
+    /* Jersey silhouette area */
+    .silhouette {
+      width: 280px;
+      height: 420px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .player-left .silhouette { margin-left: auto; margin-right: 20px; }
+    .player-right .silhouette { margin-right: auto; margin-left: 20px; }
+
+    .jersey {
+      width: 200px;
+      height: 260px;
+      border-radius: 20px 20px 8px 8px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .jersey-arg {
+      background: linear-gradient(180deg, #75aadb 0%, #ffffff 30%, #75aadb 100%);
+      border: 2px solid rgba(255,255,255,0.1);
+      box-shadow: 0 20px 60px rgba(117,170,219,0.2);
+    }
+    .jersey-por {
+      background: linear-gradient(180deg, #e63946 0%, #ffffff 30%, #e63946 100%);
+      border: 2px solid rgba(255,255,255,0.1);
+      box-shadow: 0 20px 60px rgba(230,57,70,0.2);
+    }
+    .jersey-number {
+      font-size: 7rem;
+      font-weight: 900;
+      opacity: 0.12;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #000;
+    }
+    .jersey-name {
+      position: absolute;
+      bottom: 16px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+    .name-arg { color: #1a3c6e; }
+    .name-por { color: #8b0000; }
+
+    /* Stars above jerseys */
+    .stars {
+      position: absolute;
+      top: -30px;
+      font-size: 1.5rem;
+      letter-spacing: 4px;
+    }
+
+    /* Player name big */
+    .player-name {
+      font-size: 3.5rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-top: 20px;
+      text-align: center;
+      line-height: 1;
+    }
+    .player-left .player-name {
+      background: linear-gradient(135deg, #75aadb, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .player-right .player-name {
+      background: linear-gradient(135deg, #e63946, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .player-sub {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    /* Stats grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 20px;
+      margin-top: 24px;
+      padding: 0 30px;
+      width: 100%;
+    }
+    .stat-item {
+      text-align: center;
+      padding: 8px 4px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+    }
+    .stat-item .stat-num {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+      display: block;
+    }
+    .stat-item .stat-label {
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.35);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 2px;
+    }
+
+    /* Center VS */
+    .vs-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      text-align: center;
+    }
+    .vs-circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ffd700, #ff8c00);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 60px rgba(255,215,0,0.3);
+    }
+    .vs-circle span {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #0a0a0a;
+      letter-spacing: 2px;
+    }
+
+    /* Trophy at bottom */
+    .trophy-section {
+      position: absolute;
+      bottom: 100px;
+      left: 0;
+      right: 0;
+      text-align: center;
+    }
+    .trophy {
+      font-size: 4rem;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .trophy-label {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    /* Bottom bar */
+    .bottom-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #75aadb, #ffd700, #e63946);
+    }
+
+    /* VS decorative lines */
+    .vs-line {
+      position: absolute;
+      top: 50%;
+      width: 35%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,215,0,0.15), transparent);
+    }
+    .vs-line-left { left: 5%; }
+    .vs-line-right { right: 5%; }
+  </style>
+</head>
+<body>
+
+<div class="poster">
+  <div class="accent-line"></div>
+  <div class="goat-text">Greatest of All Time</div>
+
+  <div class="title">
+    <h1>LEGENDS</h1>
+    <div class="sub">An Era of Greatness</div>
+  </div>
+  <div class="divider"></div>
+
+  <!-- Messi -->
+  <div class="player player-left">
+    <div class="silhouette">
+      <div class="jersey jersey-arg">
+        <div class="jersey-number">10</div>
+        <div class="jersey-name name-arg">Messi</div>
+      </div>
+    </div>
+    <div class="player-name">LIONEL</div>
+    <div class="player-sub">Argentina · Forward</div>
+    <div class="stats-grid">
+      <div class="stat-item"><span class="stat-num">850+</span><span class="stat-label">Goals</span></div>
+      <div class="stat-item"><span class="stat-num">8x</span><span class="stat-label">Ballon d'Or</span></div>
+      <div class="stat-item"><span class="stat-num">45+</span><span class="stat-label">Trophies</span></div>
+      <div class="stat-item"><span class="stat-num">⚽</span><span class="stat-label">World Cup 2022</span></div>
+    </div>
+  </div>
+
+  <!-- Ronaldo -->
+  <div class="player player-right">
+    <div class="silhouette">
+      <div class="jersey jersey-por">
+        <div class="jersey-number">7</div>
+        <div class="jersey-name name-por">Ronaldo</div>
+      </div>
+    </div>
+    <div class="player-name">CRISTIANO</div>
+    <div class="player-sub">Portugal · Forward</div>
+    <div class="stats-grid">
+      <div class="stat-item"><span class="stat-num">920+</span><span class="stat-label">Goals</span></div>
+      <div class="stat-item"><span class="stat-num">5x</span><span class="stat-label">Ballon d'Or</span></div>
+      <div class="stat-item"><span class="stat-num">35+</span><span class="stat-label">Trophies</span></div>
+      <div class="stat-item"><span class="stat-num">🏆</span><span class="stat-label">Euro 2016</span></div>
+    </div>
+  </div>
+
+  <!-- VS -->
+  <div class="vs-container">
+    <div class="vs-circle"><span>VS</span></div>
+  </div>
+  <div class="vs-line vs-line-left"></div>
+  <div class="vs-line vs-line-right"></div>
+
+  <!-- Trophy -->
+  <div class="trophy-section">
+    <div class="trophy">🏆</div>
+    <div class="trophy-label">Two Eras · One Debate · Forever Legends</div>
+  </div>
+
+  <div class="bottom-bar"></div>
+</div>
+
+</body>
+</html>
