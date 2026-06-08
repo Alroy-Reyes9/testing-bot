@@ -2,7 +2,7 @@ import { put, get } from '@vercel/blob';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET=proces...CRET || 'pb-club-secret-2026';
+const JWT_SECRET=*** || 'pb-club-secret-2026';
 const BLOB_KEY = 'club-users.json';
 
 async function getUsers() {
