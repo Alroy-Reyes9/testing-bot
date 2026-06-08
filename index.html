@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Serve & Smash Pickleball Club (Blue Theme)</title>
+  <title>Serve & Smash Pickleball Club</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
@@ -21,9 +21,9 @@
 
     /* ── Colors ── */
     :root {
-      --blue-accent: #60a5fa;
-      --blue-dim: #3b82f6;
-      --blue-dark: #1e40af;
+      --green: #4ade80;
+      --green-dim: #22c55e;
+      --green-dark: #166534;
       --orange: #fb923c;
       --red: #ef4444;
       --blue: #60a5fa;
@@ -38,8 +38,8 @@
     .container { max-width:1140px; margin:0 auto; padding:0 24px; }
     .tag {
       display:inline-block;
-      background:var(--blue-dark);
-      color:var(--blue-accent);
+      background:var(--green-dark);
+      color:var(--green);
       font-size:0.8rem;
       font-weight:600;
       padding:4px 14px;
@@ -81,10 +81,10 @@
       align-items:center;
       gap:10px;
     }
-    .logo span { color:var(--blue-accent); }
+    .logo span { color:var(--green); }
     .logo-icon {
       width:32px; height:32px;
-      background:var(--blue-accent);
+      background:var(--green);
       border-radius:8px;
       display:flex;
       align-items:center;
@@ -100,13 +100,13 @@
     }
     .nav-links a:hover { color:#fff; }
     .nav-cta {
-      background:var(--blue-accent);
+      background:var(--green);
       color:#0b0e14 !important;
       font-weight:700;
       padding:8px 20px;
       border-radius:100px;
     }
-    .nav-cta:hover { box-shadow:0 0 20px rgba(96,165,250,0.3); }
+    .nav-cta:hover { box-shadow:0 0 20px rgba(74,222,128,0.3); }
     .nav-user {
       display:none;
       align-items:center;
@@ -116,8 +116,8 @@
     .nav-avatar {
       width:32px; height:32px;
       border-radius:50%;
-      background:var(--blue-dark);
-      color:var(--blue-accent);
+      background:var(--green-dark);
+      color:var(--green);
       display:flex;
       align-items:center;
       justify-content:center;
@@ -157,8 +157,8 @@
       font-family:inherit;
     }
     .btn-login-nav:hover {
-      border-color:var(--blue-accent);
-      color:var(--blue-accent);
+      border-color:var(--green);
+      color:var(--green);
     }
 
     /* ── Hero ── */
@@ -167,8 +167,8 @@
       display:flex;
       align-items:center;
       background:
-        radial-gradient(ellipse 600px 400px at 20% 50%, rgba(30,64,175,0.25), transparent),
-        radial-gradient(ellipse 500px 400px at 80% 30%, rgba(96,165,250,0.12), transparent),
+        radial-gradient(ellipse 600px 400px at 20% 50%, rgba(22,101,52,0.25), transparent),
+        radial-gradient(ellipse 500px 400px at 80% 30%, rgba(251,146,60,0.12), transparent),
         var(--surface);
       position:relative;
       overflow:hidden;
@@ -188,7 +188,7 @@
       letter-spacing:-1.5px;
       max-width:700px;
     }
-    .hero h1 span { color:var(--blue-accent); }
+    .hero h1 span { color:var(--green); }
     .hero p {
       font-size:1.15rem;
       color:var(--muted);
@@ -200,7 +200,7 @@
       display:inline-flex;
       align-items:center;
       gap:8px;
-      background:var(--blue-accent);
+      background:var(--green);
       color:#0b0e14;
       font-weight:700;
       padding:14px 32px;
@@ -210,7 +210,7 @@
     }
     .btn-primary:hover {
       transform:translateY(-2px);
-      box-shadow:0 8px 30px rgba(96,165,250,0.3);
+      box-shadow:0 8px 30px rgba(74,222,128,0.3);
     }
     .btn-secondary {
       display:inline-flex;
@@ -247,7 +247,7 @@
     .stat-number {
       font-size:2.2rem;
       font-weight:800;
-      color:var(--blue-accent);
+      color:var(--green);
     }
     .stat-label { color:var(--muted); font-size:0.85rem; margin-top:4px; }
 
@@ -264,21 +264,21 @@
       transition:border-color 0.2s, transform 0.2s;
     }
     .schedule-item:hover {
-      border-color:var(--blue-dim);
+      border-color:var(--green-dim);
       transform:translateX(4px);
     }
     .schedule-day {
       min-width:70px;
       font-weight:700;
       font-size:1rem;
-      color:var(--blue-accent);
+      color:var(--green);
     }
     .schedule-detail { flex:1; }
     .schedule-detail h4 { font-weight:600; font-size:1rem; }
     .schedule-detail p { color:var(--muted); font-size:0.9rem; }
     .schedule-badge {
-      background:var(--blue-dark);
-      color:var(--blue-accent);
+      background:var(--green-dark);
+      color:var(--green);
       font-size:0.75rem;
       font-weight:600;
       padding:4px 12px;
@@ -332,14 +332,14 @@
     }
     .price-card:hover { transform:translateY(-6px); }
     .price-card.featured {
-      border-color:var(--blue-accent);
+      border-color:var(--green);
       position:relative;
     }
     .price-card.featured::before {
       content:'Most Popular';
       position:absolute;
       top:-12px; left:50%; transform:translateX(-50%);
-      background:var(--blue-accent);
+      background:var(--green);
       color:#0b0e14;
       font-size:0.75rem;
       font-weight:700;
@@ -363,7 +363,7 @@
       color:var(--muted);
       font-size:0.95rem;
     }
-    .price-card li::before { content:'✓ '; color:var(--blue-accent); font-weight:700; }
+    .price-card li::before { content:'✓ '; color:var(--green); font-weight:700; }
     .price-card .btn-primary {
       margin-top:auto;
       justify-content:center;
@@ -398,7 +398,7 @@
     .contact-form input:focus,
     .contact-form textarea:focus {
       outline:none;
-      border-color:var(--blue-accent);
+      border-color:var(--green);
     }
     .contact-form textarea { min-height:120px; resize:vertical; }
     .contact-form button {
@@ -410,7 +410,7 @@
     .member-dash {
       display:none;
       background:var(--surface2);
-      border:1px solid var(--blue-dark);
+      border:1px solid var(--green-dark);
       border-radius:var(--radius);
       padding:32px;
       margin-top:32px;
@@ -437,7 +437,7 @@
       text-align:center;
       transition:border-color 0.2s;
     }
-    .member-card:hover { border-color:var(--blue-dim); }
+    .member-card:hover { border-color:var(--green-dim); }
     .member-card-icon { font-size:1.8rem; margin-bottom:8px; }
     .member-card h4 { font-size:1rem; margin-bottom:4px; }
     .member-card p { color:var(--muted); font-size:0.85rem; }
@@ -506,7 +506,7 @@
     }
     .modal input:focus {
       outline:none;
-      border-color:var(--blue-accent);
+      border-color:var(--green);
     }
     .modal .btn-primary {
       width:100%;
@@ -536,7 +536,7 @@
       color:var(--muted);
     }
     .modal-switch a {
-      color:var(--blue-accent);
+      color:var(--green);
       font-weight:600;
       cursor:pointer;
     }
@@ -561,7 +561,7 @@
       font-size:1.1rem;
       transition:background 0.2s;
     }
-    footer .social a:hover { background:var(--blue-dark); }
+    footer .social a:hover { background:var(--green-dark); }
 
     /* ── Responsive ── */
     @media (max-width:768px) {
