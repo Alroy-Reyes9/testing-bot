@@ -9,7 +9,7 @@ async function getUsers(get) {
   } catch { return {}; }
 }
 async function saveUsers(put, obj) {
-  await put(BLOB_KEY, JSON.stringify(obj), { contentType: 'application/json', access: 'private' });
+  await put(BLOB_KEY, JSON.stringify(obj), { contentType: 'application/json', access: "public" });
 }
 
 function json(data, status = 200) {
