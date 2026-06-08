@@ -7,30 +7,19 @@ document.querySelectorAll('nav a[href^="#"]').forEach(link => {
   });
 });
 
-// Nav background
+// Nav shadow on scroll
 const nav = document.querySelector('nav');
 window.addEventListener('scroll', () => {
-  nav.style.background = window.scrollY > 50
-    ? 'rgba(10,14,23,0.95)'
-    : 'rgba(10,14,23,0.85)';
+  nav.style.boxShadow = window.scrollY > 50 ? '0 1px 8px rgba(0,0,0,0.06)' : 'none';
 });
 
-// Countdown timer to June 11, 2026
-const kickoff = new Date('June 11, 2026 00:00:00 GMT-0400').getTime();
-function updateCountdown() {
-  const now = Date.now();
-  const diff = kickoff - now;
-  if (diff <= 0) {
-    document.getElementById('days').textContent = '00';
-    document.getElementById('hours').textContent = '00';
-    document.getElementById('minutes').textContent = '00';
-    document.getElementById('seconds').textContent = '00';
-    return;
-  }
-  document.getElementById('days').textContent = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
-  document.getElementById('hours').textContent = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
-  document.getElementById('minutes').textContent = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-  document.getElementById('seconds').textContent = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
-}
-updateCountdown();
-setInterval(updateCountdown, 1000);
+// Button hover effects
+document.querySelectorAll('.btn-primary, .btn-secondary').forEach(btn => {
+  btn.addEventListener('mouseenter', () => btn.style.transform = 'scale(1.02)');
+  btn.addEventListener('mouseleave', () => btn.style.transform = 'scale(1)');
+});
+
+// Find a Court button
+document.querySelector('.btn-primary').addEventListener('click', () => {
+  document.querySelector('#find').scrollIntoView({ behavior: 'smooth' });
+});
