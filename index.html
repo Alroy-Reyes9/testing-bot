@@ -25,6 +25,7 @@
       --green-dim: #22c55e;
       --green-dark: #166534;
       --orange: #fb923c;
+      --red: #ef4444;
       --blue: #60a5fa;
       --surface: #131920;
       --surface2: #1a2230;
@@ -90,7 +91,7 @@
       justify-content:center;
       font-size:1.1rem;
     }
-    .nav-links { display:flex; gap:28px; }
+    .nav-links { display:flex; align-items:center; gap:20px; }
     .nav-links a {
       font-size:0.9rem;
       font-weight:500;
@@ -104,6 +105,60 @@
       font-weight:700;
       padding:8px 20px;
       border-radius:100px;
+    }
+    .nav-cta:hover { box-shadow:0 0 20px rgba(74,222,128,0.3); }
+    .nav-user {
+      display:none;
+      align-items:center;
+      gap:12px;
+    }
+    .nav-user.visible { display:flex; }
+    .nav-avatar {
+      width:32px; height:32px;
+      border-radius:50%;
+      background:var(--green-dark);
+      color:var(--green);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      font-size:0.85rem;
+    }
+    .nav-user-name {
+      font-size:0.85rem;
+      font-weight:500;
+      color:#fff;
+    }
+    .btn-logout {
+      background:transparent;
+      border:1px solid var(--border);
+      color:var(--muted);
+      padding:6px 16px;
+      border-radius:100px;
+      font-size:0.8rem;
+      cursor:pointer;
+      transition:all 0.2s;
+      font-family:inherit;
+    }
+    .btn-logout:hover {
+      border-color:var(--red);
+      color:var(--red);
+    }
+    .btn-login-nav {
+      background:transparent;
+      border:1px solid var(--border);
+      color:#fff;
+      padding:8px 20px;
+      border-radius:100px;
+      font-size:0.85rem;
+      font-weight:600;
+      cursor:pointer;
+      transition:all 0.2s;
+      font-family:inherit;
+    }
+    .btn-login-nav:hover {
+      border-color:var(--green);
+      color:var(--green);
     }
 
     /* ── Hero ── */
@@ -351,6 +406,142 @@
       cursor:pointer;
     }
 
+    /* ── Member Dashboard ── */
+    .member-dash {
+      display:none;
+      background:var(--surface2);
+      border:1px solid var(--green-dark);
+      border-radius:var(--radius);
+      padding:32px;
+      margin-top:32px;
+    }
+    .member-dash.visible { display:block; }
+    .member-dash h3 {
+      font-size:1.3rem;
+      margin-bottom:16px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .member-dash-grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+      margin-top:20px;
+    }
+    .member-card {
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:20px;
+      text-align:center;
+      transition:border-color 0.2s;
+    }
+    .member-card:hover { border-color:var(--green-dim); }
+    .member-card-icon { font-size:1.8rem; margin-bottom:8px; }
+    .member-card h4 { font-size:1rem; margin-bottom:4px; }
+    .member-card p { color:var(--muted); font-size:0.85rem; }
+
+    /* ── Auth Modal ── */
+    .modal-overlay {
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.6);
+      backdrop-filter:blur(4px);
+      z-index:200;
+      align-items:center;
+      justify-content:center;
+    }
+    .modal-overlay.active { display:flex; }
+    .modal {
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:40px;
+      width:100%;
+      max-width:420px;
+      position:relative;
+    }
+    .modal-close {
+      position:absolute;
+      top:16px; right:16px;
+      width:32px; height:32px;
+      border-radius:50%;
+      border:1px solid var(--border);
+      background:transparent;
+      color:var(--muted);
+      font-size:1.2rem;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:all 0.2s;
+    }
+    .modal-close:hover {
+      border-color:var(--red);
+      color:var(--red);
+    }
+    .modal h2 {
+      font-size:1.5rem;
+      font-weight:700;
+      margin-bottom:4px;
+    }
+    .modal p {
+      color:var(--muted);
+      font-size:0.9rem;
+      margin-bottom:28px;
+    }
+    .modal input {
+      width:100%;
+      background:var(--surface2);
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:14px 16px;
+      color:#fff;
+      font-family:inherit;
+      font-size:0.95rem;
+      transition:border-color 0.2s;
+      margin-bottom:14px;
+    }
+    .modal input:focus {
+      outline:none;
+      border-color:var(--green);
+    }
+    .modal .btn-primary {
+      width:100%;
+      justify-content:center;
+      border:none;
+      cursor:pointer;
+    }
+    .modal .btn-primary:disabled {
+      opacity:0.5;
+      cursor:not-allowed;
+    }
+    .modal-error {
+      background:rgba(239,68,68,0.1);
+      border:1px solid rgba(239,68,68,0.3);
+      color:var(--red);
+      font-size:0.85rem;
+      padding:10px 14px;
+      border-radius:8px;
+      margin-bottom:14px;
+      display:none;
+    }
+    .modal-error.visible { display:block; }
+    .modal-switch {
+      text-align:center;
+      margin-top:20px;
+      font-size:0.85rem;
+      color:var(--muted);
+    }
+    .modal-switch a {
+      color:var(--green);
+      font-weight:600;
+      cursor:pointer;
+    }
+    .modal-switch a:hover { text-decoration:underline; }
+
     /* ── Footer ── */
     footer {
       border-top:1px solid var(--border);
@@ -379,7 +570,8 @@
       .contact-grid { grid-template-columns:1fr; gap:40px; }
       .pricing-grid,
       .events-grid { grid-template-columns:1fr; }
-      .nav-links { display:none; }
+      .member-dash-grid { grid-template-columns:1fr; }
+      .nav-links .nav-desktop { display:none; }
       .section-title { font-size:1.8rem; }
       .schedule-item { flex-wrap:wrap; gap:12px; }
     }
@@ -395,15 +587,52 @@
         Serve & <span>Smash</span>
       </a>
       <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#schedule">Schedule</a></li>
-        <li><a href="#events">Events</a></li>
-        <li><a href="#membership">Membership</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#contact" class="nav-cta">Join Us</a></li>
+        <li class="nav-desktop"><a href="#about">About</a></li>
+        <li class="nav-desktop"><a href="#schedule">Schedule</a></li>
+        <li class="nav-desktop"><a href="#events">Events</a></li>
+        <li class="nav-desktop"><a href="#membership">Membership</a></li>
+        <li class="nav-desktop"><a href="#contact">Contact</a></li>
+        <li id="navAuthGuest">
+          <button class="btn-login-nav" onclick="openModal('login')">Sign In</button>
+        </li>
+        <li id="navAuthUser" class="nav-user">
+          <div class="nav-avatar" id="navAvatar">A</div>
+          <span class="nav-user-name" id="navName">User</span>
+          <button class="btn-logout" onclick="handleLogout()">Log Out</button>
+        </li>
       </ul>
     </div>
   </nav>
+
+  <!-- ═══ Auth Modal ═══ -->
+  <div class="modal-overlay" id="authModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div id="loginForm">
+        <h2>Welcome Back</h2>
+        <p>Sign in to your club account.</p>
+        <div class="modal-error" id="loginError"></div>
+        <input type="email" id="loginEmail" placeholder="Email" autocomplete="email" />
+        <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password" />
+        <button class="btn-primary" id="loginBtn" onclick="handleLogin()">Sign In →</button>
+        <div class="modal-switch">
+          Don't have an account? <a onclick="switchModal('signup')">Create one</a>
+        </div>
+      </div>
+      <div id="signupForm" style="display:none;">
+        <h2>Join the Club</h2>
+        <p>Create your free member account.</p>
+        <div class="modal-error" id="signupError"></div>
+        <input type="text" id="signupName" placeholder="Full Name" autocomplete="name" />
+        <input type="email" id="signupEmail" placeholder="Email" autocomplete="email" />
+        <input type="password" id="signupPassword" placeholder="Password (min 6 chars)" autocomplete="new-password" />
+        <button class="btn-primary" id="signupBtn" onclick="handleSignup()">Create Account →</button>
+        <div class="modal-switch">
+          Already a member? <a onclick="switchModal('login')">Sign in</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ═══ Hero ═══ -->
   <section class="hero" id="home">
@@ -415,10 +644,31 @@
         Serve &amp; Smash is where the court meets community.
       </p>
       <div class="hero-buttons">
-        <a href="#membership" class="btn-primary">
-          Join the Club →</a>
-        <a href="#schedule" class="btn-secondary">
-          View Schedule</a>
+        <a href="#membership" class="btn-primary">Join the Club →</a>
+        <a href="#schedule" class="btn-secondary">View Schedule</a>
+      </div>
+
+      <!-- Member Dashboard (visible when logged in) -->
+      <div class="member-dash" id="memberDash">
+        <h3>🎉 Welcome back, <span id="dashName">Member</span>!</h3>
+        <p style="color:var(--muted);">Here's what's happening at the club this week.</p>
+        <div class="member-dash-grid">
+          <div class="member-card">
+            <div class="member-card-icon">🏓</div>
+            <h4>Your Bookings</h4>
+            <p>0 upcoming sessions</p>
+          </div>
+          <div class="member-card">
+            <div class="member-card-icon">🏆</div>
+            <h4>League Rank</h4>
+            <p>Not yet placed</p>
+          </div>
+          <div class="member-card">
+            <div class="member-card-icon">🎫</div>
+            <h4>Events</h4>
+            <p>2 upcoming events</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -644,6 +894,202 @@
       <p>© 2026 Serve &amp; Smash Pickleball Club. All rights reserved.</p>
     </div>
   </footer>
+
+  <script>
+    // ── Auth API ──
+    const API = window.location.origin;
+
+    async function apiPost(endpoint, data) {
+      const res = await fetch(`${API}${endpoint}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      return { ok: res.ok, data: await res.json() };
+    }
+
+    async function apiGet(endpoint, token) {
+      const res = await fetch(`${API}${endpoint}`, {
+        headers: { 'Authorization': `Bearer ${token}` },
+      });
+      return { ok: res.ok, data: await res.json() };
+    }
+
+    // ── Token Management ──
+    function getToken() { return localStorage.getItem('pb_token'); }
+    function setToken(t) { localStorage.setItem('pb_token', t); }
+    function clearToken() { localStorage.removeItem('pb_token'); }
+    function getUser() {
+      try { return JSON.parse(localStorage.getItem('pb_user')); } catch { return null; }
+    }
+    function setUser(u) { localStorage.setItem('pb_user', JSON.stringify(u)); }
+    function clearUser() { localStorage.removeItem('pb_user'); }
+
+    // ── Auth State ──
+    function updateUI() {
+      const token = getToken();
+      const user = getUser();
+      const guestEl = document.getElementById('navAuthGuest');
+      const userEl = document.getElementById('navAuthUser');
+      const dashEl = document.getElementById('memberDash');
+      const dashName = document.getElementById('dashName');
+
+      if (token && user) {
+        guestEl.style.display = 'none';
+        userEl.classList.add('visible');
+        document.getElementById('navAvatar').textContent = user.name.charAt(0).toUpperCase();
+        document.getElementById('navName').textContent = user.name;
+        dashEl.classList.add('visible');
+        dashName.textContent = user.name;
+      } else {
+        guestEl.style.display = '';
+        userEl.classList.remove('visible');
+        dashEl.classList.remove('visible');
+      }
+    }
+
+    // ── Modal ──
+    function openModal(form) {
+      document.getElementById('authModal').classList.add('active');
+      switchModal(form);
+    }
+
+    function closeModal() {
+      document.getElementById('authModal').classList.remove('active');
+      document.getElementById('loginError').classList.remove('visible');
+      document.getElementById('signupError').classList.remove('visible');
+    }
+
+    function switchModal(form) {
+      document.getElementById('loginError').classList.remove('visible');
+      document.getElementById('signupError').classList.remove('visible');
+      if (form === 'login') {
+        document.getElementById('loginForm').style.display = 'block';
+        document.getElementById('signupForm').style.display = 'none';
+      } else {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('signupForm').style.display = 'block';
+      }
+    }
+
+    // ── Login ──
+    async function handleLogin() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      const errorEl = document.getElementById('loginError');
+      const btn = document.getElementById('loginBtn');
+
+      if (!email || !password) {
+        errorEl.textContent = 'Please fill in all fields.';
+        errorEl.classList.add('visible');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Signing in...';
+      errorEl.classList.remove('visible');
+
+      const { ok, data } = await apiPost('/api/auth/login', { email, password });
+
+      if (ok) {
+        setToken(data.token);
+        setUser(data.user);
+        closeModal();
+        updateUI();
+        document.getElementById('loginEmail').value = '';
+        document.getElementById('loginPassword').value = '';
+      } else {
+        errorEl.textContent = data.error || 'Login failed. Please try again.';
+        errorEl.classList.add('visible');
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Sign In →';
+    }
+
+    // ── Signup ──
+    async function handleSignup() {
+      const name = document.getElementById('signupName').value.trim();
+      const email = document.getElementById('signupEmail').value.trim();
+      const password = document.getElementById('signupPassword').value;
+      const errorEl = document.getElementById('signupError');
+      const btn = document.getElementById('signupBtn');
+
+      if (!name || !email || !password) {
+        errorEl.textContent = 'Please fill in all fields.';
+        errorEl.classList.add('visible');
+        return;
+      }
+      if (password.length < 6) {
+        errorEl.textContent = 'Password must be at least 6 characters.';
+        errorEl.classList.add('visible');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Creating account...';
+      errorEl.classList.remove('visible');
+
+      const { ok, data } = await apiPost('/api/auth/signup', { name, email, password });
+
+      if (ok) {
+        setToken(data.token);
+        setUser(data.user);
+        closeModal();
+        updateUI();
+        document.getElementById('signupName').value = '';
+        document.getElementById('signupEmail').value = '';
+        document.getElementById('signupPassword').value = '';
+      } else {
+        errorEl.textContent = data.error || 'Signup failed. Please try again.';
+        errorEl.classList.add('visible');
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Create Account →';
+    }
+
+    // ── Logout ──
+    function handleLogout() {
+      clearToken();
+      clearUser();
+      updateUI();
+    }
+
+    // ── Check session on load ──
+    document.addEventListener('DOMContentLoaded', async () => {
+      const token = getToken();
+      if (token) {
+        const { ok, data } = await apiGet('/api/auth/me', token);
+        if (ok) {
+          setUser(data.user);
+        } else {
+          clearToken();
+          clearUser();
+        }
+      }
+      updateUI();
+    });
+
+    // ── Close modal on overlay click ──
+    document.getElementById('authModal').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) closeModal();
+    });
+
+    // ── Enter key submits forms ──
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const modal = document.getElementById('authModal');
+        if (!modal.classList.contains('active')) return;
+        if (document.getElementById('loginForm').style.display !== 'none') {
+          handleLogin();
+        } else {
+          handleSignup();
+        }
+      }
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
 
 </body>
 </html>
